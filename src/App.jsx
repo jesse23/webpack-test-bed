@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom';
 import { increment } from './components/util';
 
 console.log(increment(1));
@@ -8,7 +7,7 @@ const loadDynamicComponent = () => import('./components/DynamicComponent');
 
 // const test = import('./components/DynamicComponent');
 
-const App = () => {
+export const App = () => {
   const [Component, setComponent] = React.useState(null);
 
   const handleLoadComponent = async () => {
@@ -27,4 +26,5 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export default App;
+
