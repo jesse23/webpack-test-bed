@@ -1,54 +1,40 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOMClient from "react-dom/client";
+import ReactDOMServer from "react-dom/server";
 import { increment } from "./components/util";
 import { App } from "./App";
-import { Router, RouterContext, Route, browserHistory, match } from "react-router";
 
 console.log(increment(1));
 
-const Routes = ( <Route path='/' component={App}></Route>);
-
-const PageTemplate = ({ children }) => {
-  return (
-    <html>
-      <head>
-        <link rel="stylesheet" href="/styles.css" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"
-          rel="stylesheet"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </head>
-      <body>
-        <div id="outlet" className="container">
-          {this.props.children}
-        </div>
-        <script src="/bundle.js"></script>
-      </body>
-    </html>
-  );
-};
-
+// client-side rendering
 if (typeof document !== "undefined") {
-  ReactDOM.createRoot(document.getElementById("root")).render(<Router history={browserHistory} routes={Routes} />);
+  ReactDOMClient.createRoot(document.getElementById("root")).render(<App />);
 }
 
-export default (locals, callback) => {
-  const history = createMemoryHistory();
-  const location = history.createLocation(locals.path);
-
-  match(
-    {
-      routes: Routes,
-      location: location,
-    },
-    function (error, redirectLocation, renderProps) {
-      var html = ReactDOMServer.renderToStaticMarkup(
-        <PageTemplate>
-          <RouterContext {...renderProps} />
-        </PageTemplate>
-      );
-      callback(null, html);
-    }
+// for SSR/SSG, not impacting client-side rendering though
+// TODO: this is very naive since:
+// - we need to assemble the HTML, css and js entries manually
+// - the routing is not covered if this needs to be used in app level
+export default (locals) => {
+  return  ReactDOMServer.renderToStaticMarkup(
+      <html lang="en">
+        <head>
+          {/*
+          <link rel="stylesheet" href="/styles.css"/>
+          */}
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <title>React Webpack Dynamic Import</title>
+          <script>
+            global = globalThis 
+          </script>
+          <script defer="defer" src="/main.bundle.js"></script>
+        </head>
+        <body>
+            <div id='root'>
+              <App />
+            </div>
+        </body>
+      </html>
   );
 };

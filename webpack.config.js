@@ -1,19 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-var StaticSiteGeneratorPlugin = require("static-site-generator-webpack-plugin");
 
 module.exports = {
   entry: './src/index_wp',
+  mode: 'development',
   output: {
+    filename: '[name].bundle.js', // Main bundle
     path: path.resolve(__dirname, 'dist_wp'),
-    filename: '.bundle.js', // Main bundle
     clean: true,
-    libraryTarget: 'umd',
-    /*
-   path: "build",
-    filename: "bundle.js",
-    libraryTarget: "umd",
-    */
   },
   module: {
     rules: [
@@ -30,17 +24,14 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new StaticSiteGeneratorPlugin({
-      // entry: "main",
-      paths: [ '/'],
-      // locals: ss,
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
     }),
   ],
-  /*
   optimization: {
     splitChunks: {
       chunks: 'all', // This will apply to both initial and dynamically loaded chunks
-      minSize: 20000, // Minimum size, in bytes, to create a separate chunk
+      minSize: 2000000, // Minimum size, in bytes, to create a separate chunk
       // maxSize: 0, // Maximum size, in bytes, for a chunk (0 means no limit)
       minChunks: 1, // Minimum number of chunks that must share a module before splitting
       maxAsyncRequests: 30, // Maximum number of concurrent requests at a time
@@ -64,8 +55,7 @@ module.exports = {
     },
   },
   devServer: {
-    static: path.resolve(__dirname, 'dist'),
-    port: 3000,
+    static: path.resolve(__dirname, 'dist_wp'),
+    port: 5173,
   },
-  */
 };

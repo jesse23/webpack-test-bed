@@ -93,8 +93,9 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
-dist_wp
 dist_vi
+dist_wp
+dist_wps
 
 # Gatsby files
 .cache/

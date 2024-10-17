@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:wp": "webpack",
+    "build:wp": "webpack -c webpack.config.js && webpack -c webpack.config.ssg.js",
     "build:vi": "vite-react-ssg build",
-    "dev:vi": "vite-react-ssg dev",
-    "dev:wp": "webpack serve --mode development"
+    "dev:wp": "webpack serve -c webpack.config.js",
+    "dev:vi": "vite-react-ssg dev"
   },
   "author": "jesse23",
   "license": "ISC",
@@ -23,7 +23,6 @@
     "@vitejs/plugin-react-swc": "^3.7.1",
     "babel-loader": "^9.2.1",
     "html-webpack-plugin": "^5.6.0",
-    "react-router": "^6.27.0",
     "react-router-dom": "^6.27.0",
     "static-site-generator-webpack-plugin": "^3.4.2",
     "vite": "^5.4.9",
