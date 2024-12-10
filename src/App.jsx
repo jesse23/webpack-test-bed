@@ -1,9 +1,10 @@
-import React, { Suspense } from 'react';
-import { increment } from './components/util';
+// import React, { Suspense } from 'react';
+import React from "react";
+import { increment } from "./components/util";
 
 console.log(increment(1));
 
-const loadDynamicComponent = () => import('./components/DynamicComponent');
+const loadDynamicComponent = () => import("./components/DynamicComponent");
 
 // const test = import('./components/DynamicComponent');
 
@@ -19,12 +20,14 @@ export const App = () => {
     <div>
       <h1>Hello, Webpack with React!</h1>
       <button onClick={handleLoadComponent}>Load Component</button>
+      {Component && <Component />}
+      {/*}
       <Suspense fallback={<div>Loading...</div>}>
         {Component && <Component />}
       </Suspense>
+      */}
     </div>
   );
 };
 
 export default App;
-
