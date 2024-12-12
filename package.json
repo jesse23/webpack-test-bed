@@ -10,7 +10,8 @@
     "build:wp": "webpack -c webpack.config.js && webpack -c webpack.config.ssg.js",
     "build:vi": "vite-react-ssg build",
     "preview:wp": "http-server -g dist_wp -p 4173",
-    "preview:vi": "vite preview"
+    "preview:vi": "vite preview",
+    "postinstall": "node ./scripts/define-react-exports.js"
   },
   "author": "jesse23",
   "license": "ISC",

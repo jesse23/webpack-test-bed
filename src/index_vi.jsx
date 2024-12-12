@@ -24,4 +24,7 @@ export const createRoot = ViteReactSSG(
     // do something.
     console.log('loading react app by vite-react-ssg...');
   },
+  {
+    useReact17: true
+  }
 )
