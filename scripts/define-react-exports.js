@@ -52,23 +52,11 @@ const updateExports = async (moduleName, exports) => {
   }
 };
 
-const patchReactDom = async () => {
-  await fs.writeFile(
-    path.join(__dirname, "../node_modules/react-dom/client.js"),
-    `
-export const createRoot = () => {};
-export const hydrateRoot = () => {};
-    `,
-    "utf8"
-  );
-  console.log(`react-dom/client has been created as polyfill!`);
-};
-
 const main = async () => {
   await Promise.all([
-    updateExports("react", EXPORTS["react"]), 
+    updateExports("react", EXPORTS["react"]),
     updateExports("react-dom", EXPORTS["react-dom"]),
-    patchReactDom()]);
+  ]);
 };
 
 main();
